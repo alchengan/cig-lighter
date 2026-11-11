@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bon0bkbwo01g5"]
+
+[ext_resource type="Script" uid="uid://k72utl3byo33" path="res://car.gd" id="1_7822p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o66vy"]
+albedo_color = Color(1, 0.4862745, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_galnl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fhr6u"]
+size = Vector3(2, 1.0019531, 3)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_galnl"]
+
+[node name="Car" type="RigidBody3D" unique_id=94223461]
+mass = 1500.0
+gravity_scale = 0.0
+script = ExtResource("1_7822p")
+max_turn_speed = 5.0
+turn_accel = 5.0
+reset_turn_accel = 25.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1078149382]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_o66vy")
+mesh = SubResource("BoxMesh_galnl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1180146071]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_fhr6u")
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=1128147290]
+transform = Transform3D(-1, 1.3072795e-08, -8.6439826e-08, 0, 0.98875636, 0.14953534, 8.742278e-08, 0.14953534, -0.98875636, 0, 2.7717435, -0.46333468)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=991616067]
+shape = SubResource("SphereShape3D_galnl")
+spring_length = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=1086042048]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
