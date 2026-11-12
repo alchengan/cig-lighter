@@ -9,7 +9,7 @@ size = Vector3(2.25, 0.2, 0.2)
 size = Vector3(2.25, 0.2, 0.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u2ch8"]
-size = Vector3(0.4, 0.3, 0.3)
+size = Vector3(0.26, 0.4, 0.4)
 
 [node name="Match" type="RigidBody3D" unique_id=1972445050]
 freeze = true
@@ -24,5 +24,5 @@ shape = SubResource("BoxShape3D_gbv76")
 [node name="Head" type="Area3D" parent="." unique_id=1231300885]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head" unique_id=1860856173]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.225, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 0)
 shape = SubResource("BoxShape3D_u2ch8")
