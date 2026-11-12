@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="cig lighter"
-run/main_scene="uid://ddirms21x1tan"
+run/main_scene="uid://brw23fphk5q2"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
