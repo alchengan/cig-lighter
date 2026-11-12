@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cs80ii18r5gpj"]
 
-[ext_resource type="Script" uid="uid://k72utl3byo33" path="res://car.gd" id="1_20m0l"]
+[ext_resource type="Script" uid="uid://k72utl3byo33" path="res://objects/car/car.gd" id="1_20m0l"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_11b2j"]
 
