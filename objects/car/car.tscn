@@ -66,11 +66,11 @@ shape = SubResource("BoxShape3D_u2ch8")
 script = ExtResource("3_w6yfw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Cigarette" unique_id=1624788059]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0.6, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0.6, 0.04)
 mesh = SubResource("BoxMesh_u2ch8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cigarette" unique_id=1682266952]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0.6, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0.6, 0.04)
 shape = SubResource("BoxShape3D_gbv76")
 
 [editable path="86Parent/86"]

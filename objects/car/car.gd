@@ -36,6 +36,7 @@ extends RigidBody3D
 
 @onready var mesh_shape := $"86Parent"
 @onready var collision_shape := $CollisionShape3D
+@onready var cig := $"Cigarette"
 
 # wheels
 @onready var wheel_fr := $"86Parent/86/WheelFrontRightParent/WheelFrontRight"
@@ -155,6 +156,7 @@ func drift_car_turn(delta: float) -> void:
 	curr_car_angle = move_toward(curr_car_angle, target_car_angle, drift_car_spin_speed * delta)
 	mesh_shape.rotation = Vector3(0, curr_car_angle, 0)
 	collision_shape.rotation = Vector3(0, curr_car_angle, 0)
+	cig.rotation = Vector3(0, curr_car_angle, 0)
 	
 func wheel_roll(delta: float) -> void:
 	var wheel_angular_velocity := linear_velocity.length() / wheel_radius * (-1 if linear_velocity.dot(transform.basis.z) < 0 else 1)

@@ -95,3 +95,4 @@ shape = SubResource("BoxShape3D_o66vy")
 
 [node name="Match" parent="." unique_id=1972445050 instance=ExtResource("2_hcj7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.6579033, 3.5)
+is_lit = true
