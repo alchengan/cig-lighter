@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ck1bugsg77tfu"]
 
 [ext_resource type="Script" uid="uid://t4sfjr6a3ov7" path="res://objects/match/match.gd" id="1_7y1jj"]
+[ext_resource type="PackedScene" uid="uid://dsprvuw5eg0ti" path="res://models/match/match.glb" id="2_cgcil"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_u2ch8"]
 size = Vector3(2.25, 0.2, 0.2)
@@ -16,7 +17,11 @@ freeze = true
 script = ExtResource("1_7y1jj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=670665132]
+visible = false
 mesh = SubResource("BoxMesh_u2ch8")
+
+[node name="match" parent="." unique_id=2139829588 instance=ExtResource("2_cgcil")]
+transform = Transform3D(-4.2596747e-07, 0, -9.745, 0, 9.745, 0, 9.745, 0, -4.2596747e-07, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=458369593]
 shape = SubResource("BoxShape3D_gbv76")
