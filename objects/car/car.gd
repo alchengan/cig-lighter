@@ -21,6 +21,11 @@ extends RigidBody3D
 @export var drift_car_angle := 1.0 # radians
 @export var drift_car_spin_speed := 8.0 # radians/s 
 
+@export_group("Wheel Stuff")
+@export var wheel_radius := 0.2 # m
+@export var wheel_turn_angle := 0.5 # radians
+@export var wheel_turn_speed := 4.0 # radians
+
 @export_group("Input Actions")
 @export var turn_left := "turn_left"
 @export var turn_right := "turn_right"
@@ -29,38 +34,49 @@ extends RigidBody3D
 @export var drift := "drift"
 @export var reverse:= "reverse"
 
-@onready var mesh_shape := $MeshInstance3D
+@onready var mesh_shape := $"86Parent"
 @onready var collision_shape := $CollisionShape3D
+
+# wheels
+@onready var wheel_fr := $"86Parent/86/WheelFrontRightParent/WheelFrontRight"
+@onready var wheel_fl := $"86Parent/86/WheelFrontLeftParent/WheelFrontLeft"
+@onready var wheel_br := $"86Parent/86/WheelBackRight"
+@onready var wheel_bl := $"86Parent/86/WheelBackLeft"
+@onready var wheel_parent_fr := $"86Parent/86/WheelFrontRightParent"
+@onready var wheel_parent_fl := $"86Parent/86/WheelFrontLeftParent"
 
 var forward_speed := 0.0
 var turn_speed := 0.0
 
 var curr_car_angle := 0.0
+var curr_wheel_angle := 0.0
 
 func _ready() -> void:
 	check_input_mappings()
 	axis_lock_angular_x = true
 	axis_lock_angular_z = true
 	
-	
+func _process(delta: float) -> void:
+	wheel_roll(delta)
+	wheel_turn(delta)
+	drift_car_turn(delta)
+		
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	drive(state.step)
 	lateral_decel(state.step)
 	
 	state.angular_velocity.y = turn(state.angular_velocity.y, state.step)
 	#print(state.angular_velocity.y)
-	
-	drift_car_turn(state.step)
-		
 
 func drive(delta: float) -> void:
 	# forward and backward movement
 	# mass dependent
 	
-	var _gas_acceleration := drift_acceleration if Input.is_action_pressed(drift) else gas_acceleration
-	var _max_speed := drift_max_speed if Input.is_action_pressed(drift) else max_speed
-	var _brake_deceleration := drift_brake_deceleration if Input.is_action_pressed(drift) else brake_deceleration
-	var _normal_deceleration := drift_normal_deceleration if Input.is_action_pressed(drift) else normal_deceleration
+	var drifting := Input.is_action_pressed(drift) and Input.is_action_pressed(reverse)
+	var _gas_acceleration := drift_acceleration if drifting else gas_acceleration
+	var _max_speed := drift_max_speed if drifting else max_speed
+	var _brake_deceleration := drift_brake_deceleration if drifting else brake_deceleration
+	var _normal_deceleration := drift_normal_deceleration if drifting else normal_deceleration
 	
 	var target_speed : float
 	var accel_rate : float
@@ -102,9 +118,10 @@ func lateral_decel(delta: float) -> void:
 	
 	
 func turn(curr_turn_speed: float, delta: float) -> float:
-	var _max_turn_speed := drift_max_turn_speed if Input.is_action_pressed(drift) else max_turn_speed
-	var _turn_accel := drift_turn_accel if Input.is_action_pressed(drift) else turn_accel
-	var _reset_turn_accel := drift_reset_turn_accel if Input.is_action_pressed(drift) else reset_turn_accel
+	var drifting := Input.is_action_pressed(drift) and Input.is_action_pressed(reverse)
+	var _max_turn_speed := drift_max_turn_speed if drifting else max_turn_speed
+	var _turn_accel := drift_turn_accel if drifting else turn_accel
+	var _reset_turn_accel := drift_reset_turn_accel if drifting else reset_turn_accel
 	
 	var turn_accel_rate: float
 	var target_turn_speed := Input.get_axis(turn_right, turn_left) * _max_turn_speed * (-1 if linear_velocity.dot(transform.basis.z) < 0 else 1)
@@ -121,7 +138,7 @@ func turn(curr_turn_speed: float, delta: float) -> float:
 	return move_toward(curr_turn_speed, 0, _reset_turn_accel * delta)
 	
 	
-func drift_car_turn(delta: float):
+func drift_car_turn(delta: float) -> void:
 	var turn_dir := Input.get_axis(turn_right, turn_left)
 	var target_car_angle : float
 	
@@ -138,7 +155,21 @@ func drift_car_turn(delta: float):
 	curr_car_angle = move_toward(curr_car_angle, target_car_angle, drift_car_spin_speed * delta)
 	mesh_shape.rotation = Vector3(0, curr_car_angle, 0)
 	collision_shape.rotation = Vector3(0, curr_car_angle, 0)
-
+	
+func wheel_roll(delta: float) -> void:
+	var wheel_angular_velocity := linear_velocity.length() / wheel_radius * (-1 if linear_velocity.dot(transform.basis.z) < 0 else 1)
+	wheel_fl.rotate_z(-wheel_angular_velocity * delta)
+	wheel_bl.rotate_z(-wheel_angular_velocity * delta)
+	wheel_fr.rotate_z(-wheel_angular_velocity * delta)
+	wheel_br.rotate_z(-wheel_angular_velocity * delta)
+	
+func wheel_turn(delta: float) -> void:
+	var turn_dir := Input.get_axis(turn_right, turn_left)
+	var target_wheel_angle := turn_dir * wheel_turn_angle
+	
+	curr_wheel_angle = move_toward(curr_wheel_angle, target_wheel_angle, wheel_turn_speed * delta)
+	wheel_parent_fl.rotation = Vector3(0, curr_wheel_angle, 0)
+	wheel_parent_fr.rotation = Vector3(0, curr_wheel_angle, 0)
 	
 func check_input_mappings():
 	if not InputMap.has_action(turn_left):
