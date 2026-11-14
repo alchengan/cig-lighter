@@ -23,6 +23,12 @@ size = Vector3(0.07, 0.07, 0.35)
 mass = 1500.0
 gravity_scale = 0.0
 script = ExtResource("1_hqc7p")
+max_turn_speed = 1.0
+turn_accel = 2.0
+reset_turn_accel = 4.0
+drift_max_turn_speed = 4.5
+drift_turn_accel = 4.5
+drift_reset_turn_accel = 6.0
 
 [node name="86Parent" type="Node3D" parent="." unique_id=287311367]
 
