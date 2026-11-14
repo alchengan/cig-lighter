@@ -39,12 +39,15 @@ extends RigidBody3D
 @onready var cig := $"Cigarette"
 
 # wheels
-@onready var wheel_fr := $"86Parent/86/WheelFrontRightParent/WheelFrontRight"
-@onready var wheel_fl := $"86Parent/86/WheelFrontLeftParent/WheelFrontLeft"
-@onready var wheel_br := $"86Parent/86/WheelBackRight"
-@onready var wheel_bl := $"86Parent/86/WheelBackLeft"
+@onready var wheel_fr := $"86Parent/86/WheelFrontRightParent/WheelParent/Wheel"
+@onready var wheel_fl := $"86Parent/86/WheelFrontLeftParent/WheelParent/Wheel"
+@onready var wheel_br := $"86Parent/86/WheelBackRight/Wheel"
+@onready var wheel_bl := $"86Parent/86/WheelBackLeft/Wheel"
 @onready var wheel_parent_fr := $"86Parent/86/WheelFrontRightParent"
 @onready var wheel_parent_fl := $"86Parent/86/WheelFrontLeftParent"
+
+signal start_drifting
+signal stop_drifting
 
 var forward_speed := 0.0
 var turn_speed := 0.0
@@ -61,6 +64,9 @@ func _process(delta: float) -> void:
 	wheel_roll(delta)
 	wheel_turn(delta)
 	drift_car_turn(delta)
+	
+	if Input.is_action_just_pressed(drift): start_drifting.emit()
+	if Input.is_action_just_released(drift): stop_drifting.emit()
 		
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	drive(state.step)
@@ -160,8 +166,8 @@ func drift_car_turn(delta: float) -> void:
 	
 func wheel_roll(delta: float) -> void:
 	var wheel_angular_velocity := linear_velocity.length() / wheel_radius * (-1 if linear_velocity.dot(transform.basis.z) < 0 else 1)
-	wheel_fl.rotate_z(-wheel_angular_velocity * delta)
-	wheel_bl.rotate_z(-wheel_angular_velocity * delta)
+	wheel_fl.rotate_z(wheel_angular_velocity * delta)
+	wheel_bl.rotate_z(wheel_angular_velocity * delta)
 	wheel_fr.rotate_z(-wheel_angular_velocity * delta)
 	wheel_br.rotate_z(-wheel_angular_velocity * delta)
 	

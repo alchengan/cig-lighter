@@ -5,11 +5,6 @@
 [ext_resource type="Script" uid="uid://dnjwpindhurpo" path="res://objects/car/striker.gd" id="2_w6yfw"]
 [ext_resource type="Script" uid="uid://nhs2fkcrsobp" path="res://objects/car/cigarette.gd" id="3_w6yfw"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o66vy"]
-albedo_color = Color(1, 0.4862745, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_galnl"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_fhr6u"]
 size = Vector3(2, 1.0019531, 3)
 
@@ -34,11 +29,22 @@ script = ExtResource("1_hqc7p")
 [node name="86" parent="86Parent" unique_id=1581030991 instance=ExtResource("2_slkbj")]
 transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 0, 0.56979275, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1078149382]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0.5, 0)
-visible = false
-material_override = SubResource("StandardMaterial3D_o66vy")
-mesh = SubResource("BoxMesh_galnl")
+[node name="WheelParent" parent="86Parent/86/WheelFrontRightParent" parent_id_path=PackedInt32Array(1581030991, 201634047) index="0" unique_id=30964433 node_paths=PackedStringArray("car")]
+car = NodePath("../../../..")
+
+[node name="WheelFrontLeftParent" parent="86Parent/86" index="2" unique_id=1736566197]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.868, -0.766, -1.922)
+
+[node name="WheelParent" parent="86Parent/86/WheelFrontLeftParent" index="0" unique_id=962944191 node_paths=PackedStringArray("car")]
+transform = Transform3D(-1, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -1, 0, 0, 0)
+car = NodePath("../../../..")
+
+[node name="WheelBackRight" parent="86Parent/86" index="3" unique_id=730181980 node_paths=PackedStringArray("car", "skidmark_parent")]
+car = NodePath("../../..")
+skidmark_parent = NodePath("../../..")
+
+[node name="WheelBackLeft" parent="86Parent/86" index="4" unique_id=757999607 node_paths=PackedStringArray("car")]
+car = NodePath("../../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1180146071]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -73,4 +79,17 @@ mesh = SubResource("BoxMesh_u2ch8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0.6, 0.04)
 shape = SubResource("BoxShape3D_gbv76")
 
+[connection signal="start_drifting" from="." to="86Parent/86/WheelFrontRightParent/WheelParent" method="_on_car_start_drifting"]
+[connection signal="start_drifting" from="." to="86Parent/86/WheelFrontLeftParent/WheelParent" method="_on_car_start_drifting"]
+[connection signal="start_drifting" from="." to="86Parent/86/WheelBackRight" method="_on_car_start_drifting"]
+[connection signal="start_drifting" from="." to="86Parent/86/WheelBackLeft" method="_on_car_start_drifting"]
+[connection signal="stop_drifting" from="." to="86Parent/86/WheelFrontRightParent/WheelParent" method="_on_car_stop_drifting"]
+[connection signal="stop_drifting" from="." to="86Parent/86/WheelFrontLeftParent/WheelParent" method="_on_car_stop_drifting"]
+[connection signal="stop_drifting" from="." to="86Parent/86/WheelBackRight" method="_on_car_stop_drifting"]
+[connection signal="stop_drifting" from="." to="86Parent/86/WheelBackLeft" method="_on_car_stop_drifting"]
+
 [editable path="86Parent/86"]
+[editable path="86Parent/86/WheelFrontRightParent/WheelParent"]
+[editable path="86Parent/86/WheelFrontLeftParent/WheelParent"]
+[editable path="86Parent/86/WheelBackRight"]
+[editable path="86Parent/86/WheelBackLeft"]
