@@ -1,6 +1,7 @@
 extends RigidBody3D
 
 @onready var match_head := $Head
+@onready var light_sound := $LightSound
 
 @export var is_lit := false
 
@@ -23,5 +24,5 @@ func ignite() -> void:
 		return
 
 	is_lit = true
-
+	light_sound.play()
 	print("Match ignited")
