@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://bjdr0nookbep3"]
+
+[ext_resource type="Script" uid="uid://byfoykh4ysupm" path="res://objects/UI/options_menu.gd" id="1_5sx20"]
+[ext_resource type="Script" uid="uid://ui0do5ixwuba" path="res://objects/UI/audio_options.gd" id="2_iop2d"]
+
+[node name="OptionsMenu" type="Control" unique_id=1325450302]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5sx20")
+
+[node name="AudioOptions" type="Control" parent="." unique_id=890730391]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_iop2d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AudioOptions" unique_id=1096943253]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -27.5
+offset_top = -48.5
+offset_right = 159.0
+offset_bottom = 48.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MasterLabel" type="Label" parent="AudioOptions/VBoxContainer" unique_id=1405991351]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Master"
+
+[node name="MasterSlider" type="HSlider" parent="AudioOptions/VBoxContainer" unique_id=1996676626]
+layout_mode = 2
+size_flags_vertical = 3
+max_value = 1.0
+step = 0.01
+
+[node name="MusicLabel" type="Label" parent="AudioOptions/VBoxContainer" unique_id=766637570]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="AudioOptions/VBoxContainer" unique_id=1607872417]
+layout_mode = 2
+size_flags_vertical = 3
+max_value = 1.0
+step = 0.01
+
+[node name="SFXLabel" type="Label" parent="AudioOptions/VBoxContainer" unique_id=1057888389]
+layout_mode = 2
+size_flags_vertical = 3
+text = "SFX"
+
+[node name="SFXSlider" type="HSlider" parent="AudioOptions/VBoxContainer" unique_id=69826856]
+layout_mode = 2
+size_flags_vertical = 3
+max_value = 1.0
+step = 0.01
+
+[node name="Confirm" type="Button" parent="AudioOptions/VBoxContainer" unique_id=349994306]
+layout_mode = 2
+text = "Apply"
+
+[connection signal="mouse_exited" from="AudioOptions/VBoxContainer/MasterSlider" to="AudioOptions" method="_on_master_slider_mouse_exited"]
+[connection signal="mouse_exited" from="AudioOptions/VBoxContainer/MusicSlider" to="AudioOptions" method="_on_music_slider_mouse_exited"]
+[connection signal="mouse_exited" from="AudioOptions/VBoxContainer/SFXSlider" to="AudioOptions" method="_on_sfx_slider_mouse_exited"]
+[connection signal="pressed" from="AudioOptions/VBoxContainer/Confirm" to="." method="_on_confirm_pressed"]

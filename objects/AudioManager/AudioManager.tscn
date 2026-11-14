@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bcv4nmss65xkl"]
+
+[ext_resource type="AudioStream" uid="uid://batr651uiblmo" path="res://audio/dragracing.ogg" id="1_62t3i"]
+[ext_resource type="Script" uid="uid://ke2gojbkj0d2" path="res://objects/AudioManager/audio_manager.gd" id="1_cvson"]
+
+[node name="AudioManager" type="Node" unique_id=156933036]
+script = ExtResource("1_cvson")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=860867218]
+process_mode = 3
+stream = ExtResource("1_62t3i")
+autoplay = true
+bus = &"Music"
