@@ -15,8 +15,12 @@ var mesh_vertices: Array[Vector3]
 
 func _ready() -> void:
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	print(skidmark_parent)
 	
 func _process(delta) -> void:
+	if skidmark_parent == null:
+		return
+		
 	if drifting:
 		var _skidmark_half_width = lerpf(0, skidmark_half_width, clamp(car.linear_velocity.length() / speed_threshhold, 0.0, 1.0))
 		var new_front_drift_point: Vector3 = wheel_bottom.global_position + car.global_basis.x * _skidmark_half_width
@@ -33,7 +37,7 @@ func _process(delta) -> void:
 		
 func _on_car_start_drifting() -> void:
 	#print("drift started")
-	if mesh_instance == null:
+	if skidmark_parent == null:
 		return
 		
 	drifting = true

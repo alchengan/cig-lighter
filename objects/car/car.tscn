@@ -39,9 +39,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.868, -0.766, -1.922)
 transform = Transform3D(-1, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -1, 0, 0, 0)
 car = NodePath("../../../..")
 
-[node name="WheelBackRight" parent="86Parent/86" index="3" unique_id=730181980 node_paths=PackedStringArray("car", "skidmark_parent")]
+[node name="WheelBackRight" parent="86Parent/86" index="3" unique_id=730181980 node_paths=PackedStringArray("car")]
 car = NodePath("../../..")
-skidmark_parent = NodePath("../../..")
 
 [node name="WheelBackLeft" parent="86Parent/86" index="4" unique_id=757999607 node_paths=PackedStringArray("car")]
 car = NodePath("../../..")
