@@ -3,7 +3,15 @@
 [ext_resource type="Script" uid="uid://k72utl3byo33" path="res://objects/car/car.gd" id="1_hqc7p"]
 [ext_resource type="PackedScene" uid="uid://gw2eyr870d4q" path="res://objects/86/86.tscn" id="2_slkbj"]
 [ext_resource type="Script" uid="uid://dnjwpindhurpo" path="res://objects/car/striker.gd" id="2_w6yfw"]
+[ext_resource type="PackedScene" uid="uid://bqoiaasj7php1" path="res://models/chad/chad.glb" id="3_qdph3"]
 [ext_resource type="Script" uid="uid://nhs2fkcrsobp" path="res://objects/car/cigarette.gd" id="3_w6yfw"]
+[ext_resource type="Script" uid="uid://etkl4b0kxagk" path="res://models/chad/chad.gd" id="4_lxyo8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_u2ch8"]
+size = Vector3(0.025, 0.025, 0.295)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gbv76"]
+size = Vector3(0.07, 0.07, 0.35)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fhr6u"]
 size = Vector3(2, 1.0019531, 3)
@@ -12,12 +20,6 @@ size = Vector3(2, 1.0019531, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u2ch8"]
 size = Vector3(2, 1, 0.2)
-
-[sub_resource type="BoxMesh" id="BoxMesh_u2ch8"]
-size = Vector3(0.025, 0.025, 0.295)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_gbv76"]
-size = Vector3(0.07, 0.07, 0.35)
 
 [node name="Car" type="RigidBody3D" unique_id=94223461]
 axis_lock_linear_y = true
@@ -57,6 +59,23 @@ car = NodePath("../../..")
 [node name="WheelBackLeft" parent="86Parent/86" index="4" unique_id=757999607 node_paths=PackedStringArray("car")]
 car = NodePath("../../..")
 
+[node name="chad" parent="86Parent" unique_id=997959909 instance=ExtResource("3_qdph3")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.6284122, 0.43563658, 0.0860554)
+script = ExtResource("4_lxyo8")
+chad_pos_start = Vector3(0.6284122, 0.43563658, 0.0860554)
+chad_pos_final = Vector3(0.98146516, 0.7265124, 0.0860554)
+
+[node name="Cigarette" type="Area3D" parent="86Parent/chad" unique_id=1463320722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.046627e-06, 0.22638744, -0.065772116)
+script = ExtResource("3_w6yfw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="86Parent/chad/Cigarette" unique_id=1624788059]
+visible = false
+mesh = SubResource("BoxMesh_u2ch8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="86Parent/chad/Cigarette" unique_id=1682266952]
+shape = SubResource("BoxShape3D_gbv76")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1180146071]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_fhr6u")
@@ -78,17 +97,6 @@ car = NodePath("..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Striker" unique_id=381130823]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.525, -1.5)
 shape = SubResource("BoxShape3D_u2ch8")
-
-[node name="Cigarette" type="Area3D" parent="." unique_id=1463320722]
-script = ExtResource("3_w6yfw")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Cigarette" unique_id=1624788059]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0.6, 0.04)
-mesh = SubResource("BoxMesh_u2ch8")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cigarette" unique_id=1682266952]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0.6, 0.04)
-shape = SubResource("BoxShape3D_gbv76")
 
 [connection signal="start_drifting" from="." to="86Parent/86/WheelFrontRightParent/WheelParent" method="_on_car_start_drifting"]
 [connection signal="start_drifting" from="." to="86Parent/86/WheelFrontLeftParent/WheelParent" method="_on_car_start_drifting"]

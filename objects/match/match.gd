@@ -5,6 +5,8 @@ extends RigidBody3D
 
 @export var is_lit := false
 
+signal match_lit
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	match_head.area_entered.connect(_on_match_head_area_entered)
@@ -25,4 +27,9 @@ func ignite() -> void:
 
 	is_lit = true
 	light_sound.play()
+	match_lit.emit()
 	print("Match ignited")
+
+
+func _on_car_reset_car() -> void:
+	is_lit = false

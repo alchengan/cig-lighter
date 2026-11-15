@@ -10,3 +10,7 @@ func ignite() -> void:
 	is_lit = true
 
 	print("Cigarette lit")
+
+
+func _on_car_reset_car() -> void:
+	is_lit = false

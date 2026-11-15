@@ -269,6 +269,11 @@ transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -39.
 
 [node name="OptionsMenu" parent="CanvasLayer" unique_id=1325450302 instance=ExtResource("4_1v4ph")]
 
+[connection signal="reset_car" from="Car" to="Car/86Parent/chad" method="_on_car_reset_car"]
+[connection signal="reset_car" from="Car" to="Car/86Parent/chad/Cigarette" method="_on_car_reset_car"]
+[connection signal="reset_car" from="Car" to="Match" method="_on_car_reset_car"]
+[connection signal="match_lit" from="Match" to="Car/86Parent/chad" method="_on_match_match_lit"]
+
 [editable path="Car"]
 [editable path="Car/86Parent/86"]
 [editable path="Car/86Parent/86/WheelFrontRightParent/WheelParent"]

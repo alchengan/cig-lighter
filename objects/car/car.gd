@@ -38,7 +38,6 @@ extends RigidBody3D
 
 @onready var mesh_shape := $"86Parent"
 @onready var collision_shape := $CollisionShape3D
-@onready var cig := $"Cigarette"
 @onready var spoiler := $Striker
 
 # wheels
@@ -51,6 +50,7 @@ extends RigidBody3D
 
 signal start_drifting
 signal stop_drifting
+signal reset_car
 
 var forward_speed := 0.0
 var turn_speed := 0.0
@@ -77,7 +77,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		state.linear_velocity = Vector3.ZERO
 		look_at(Vector3.FORWARD)
 		state.angular_velocity = Vector3.ZERO
-		# TODO: unlight match/cigarette
+		reset_car.emit()
 		return
 		
 	drive(state.step)
@@ -175,7 +175,6 @@ func drift_car_turn(delta: float) -> void:
 	curr_car_angle = move_toward(curr_car_angle, target_car_angle, drift_car_spin_speed * delta)
 	mesh_shape.rotation = Vector3(0, curr_car_angle, 0)
 	collision_shape.rotation = Vector3(0, curr_car_angle, 0)
-	cig.rotation = Vector3(0, curr_car_angle, 0)
 	spoiler.rotation = Vector3(0, curr_car_angle, 0)
 	
 func wheel_roll(delta: float) -> void:
