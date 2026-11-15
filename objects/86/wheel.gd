@@ -15,7 +15,7 @@ var mesh_vertices: Array[Vector3]
 
 func _ready() -> void:
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	print(skidmark_parent)
+	#print(skidmark_parent)
 	
 func _process(delta) -> void:
 	if skidmark_parent == null:

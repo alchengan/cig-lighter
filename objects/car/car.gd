@@ -2,6 +2,7 @@ extends RigidBody3D
 
 @export_group("Movement")
 @export var gas_acceleration := 15.0 # m/s/s
+@export var initial_accel_boost := 5.0 # m/s/s
 @export var max_speed := 60.0 # m/s
 @export var normal_deceleration := 10.0 # m/s/s
 @export var brake_deceleration := 25.0 # m/s/s
@@ -32,7 +33,8 @@ extends RigidBody3D
 @export var gas := "gas"
 @export var brake := "brake"
 @export var drift := "drift"
-@export var reverse:= "reverse"
+@export var reverse := "reverse"
+@export var reset := "reset"
 
 @onready var mesh_shape := $"86Parent"
 @onready var collision_shape := $CollisionShape3D
@@ -70,7 +72,17 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_released(drift): stop_drifting.emit()
 		
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	if Input.is_action_just_pressed(reset):
+		global_position = Vector3.ZERO
+		state.linear_velocity = Vector3.ZERO
+		look_at(Vector3.FORWARD)
+		state.angular_velocity = Vector3.ZERO
+		# TODO: unlight match/cigarette
+		return
+		
 	drive(state.step)
+	if Input.is_action_just_pressed(gas) and not Input.is_action_pressed(reverse) and not Input.is_action_pressed(drift): 
+		apply_impulse(mass * initial_accel_boost * global_transform.basis.z.normalized()) # quick accel on gas
 	lateral_decel(state.step)
 	
 	state.angular_velocity.y = turn(state.angular_velocity.y, state.step)
