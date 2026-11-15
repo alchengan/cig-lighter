@@ -112,15 +112,6 @@ func drive(delta: float) -> void:
 	else:
 		target_speed = 0.0
 		
-	#if Input.is_action_pressed(gas) and not Input.is_action_pressed(brake):
-		#if Input.is_action_pressed(reverse):
-			#target_speed = -_max_speed
-		#else:
-			#target_speed = _max_speed
-	#else:
-		##print("go 0")
-		#target_speed = 0.0
-		
 	if absf(target_speed) > 0.01:
 		accel_rate = _gas_acceleration
 	elif Input.is_action_pressed(brake):
