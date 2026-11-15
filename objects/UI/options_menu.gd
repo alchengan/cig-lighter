@@ -1,5 +1,6 @@
 extends Control
 
+@onready var drive_ui := $"../DriveUI"
 
 func _ready() -> void:
 	hide()
@@ -16,11 +17,13 @@ func _input(event: InputEvent) -> void:
 
 
 func open_menu() -> void:
+	drive_ui.hide()
 	show()
 	get_tree().paused = true
 
 
 func close_menu() -> void:
+	drive_ui.show()
 	hide()
 	get_tree().paused = false
 

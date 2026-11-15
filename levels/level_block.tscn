@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ck1bugsg77tfu" path="res://objects/match/match.tscn" id="2_pcna7"]
 [ext_resource type="PackedScene" uid="uid://bcv4nmss65xkl" path="res://objects/AudioManager/AudioManager.tscn" id="3_ob5w4"]
 [ext_resource type="PackedScene" uid="uid://bjdr0nookbep3" path="res://objects/UI/OptionsMenu.tscn" id="4_1v4ph"]
+[ext_resource type="PackedScene" uid="uid://yudb5wo53x2g" path="res://objects/UI/drive_ui.tscn" id="6_ob5w4"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_11b2j"]
 
@@ -268,6 +269,8 @@ transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -39.
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=207590033]
 
 [node name="OptionsMenu" parent="CanvasLayer" unique_id=1325450302 instance=ExtResource("4_1v4ph")]
+
+[node name="DriveUI" parent="CanvasLayer" unique_id=510444355 instance=ExtResource("6_ob5w4")]
 
 [connection signal="reset_car" from="Car" to="Car/86Parent/chad" method="_on_car_reset_car"]
 [connection signal="reset_car" from="Car" to="Car/86Parent/chad/Cigarette" method="_on_car_reset_car"]

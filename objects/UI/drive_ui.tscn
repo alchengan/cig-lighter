@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://yudb5wo53x2g"]
+
+[ext_resource type="Script" uid="uid://dbejdu5mxgqgc" path="res://objects/UI/drive_ui.gd" id="1_wujnt"]
+[ext_resource type="Texture2D" uid="uid://ew4bobe38q04" path="res://ui icons/gas pedal.png" id="2_ay1ie"]
+[ext_resource type="Texture2D" uid="uid://mtxr2vbbxx26" path="res://ui icons/brake pedal.png" id="3_0gguk"]
+[ext_resource type="Texture2D" uid="uid://jej1usdilivo" path="res://ui icons/reverse clutch.png" id="4_hwdpa"]
+[ext_resource type="Texture2D" uid="uid://ih1vagq1k0rk" path="res://ui icons/drift.png" id="5_sgqnb"]
+
+[node name="DriveUI" type="Node2D" unique_id=510444355]
+script = ExtResource("1_wujnt")
+on_color = Color(1, 1, 1, 1)
+off_color = Color(0.3403393, 0.34033933, 0.3403393, 1)
+reverse_button_on_pos = Vector2(884, 604)
+reverse_button_off_pos = Vector2(880.99994, 557)
+
+[node name="GasPedal" type="Sprite2D" parent="." unique_id=1887225773]
+position = Vector2(1108, 593)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_ay1ie")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GasPedal" unique_id=370392862]
+anchors_preset = -1
+anchor_left = -0.1619036
+anchor_top = -0.09226205
+anchor_right = 0.102382116
+anchor_bottom = 0.03988081
+offset_left = -58.66748
+offset_top = -375.0
+offset_right = 90.33252
+offset_bottom = -269.0
+theme_override_font_sizes/normal_font_size = 124
+text = "GAS"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="GasPedal" unique_id=1623799774]
+offset_left = -53.0
+offset_top = -175.0
+offset_right = 78.0
+offset_bottom = 127.0
+theme_override_font_sizes/normal_font_size = 214
+text = ">"
+metadata/_edit_use_anchors_ = true
+
+[node name="Brake" type="Sprite2D" parent="." unique_id=1925429267]
+position = Vector2(1004, 593)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_0gguk")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Brake" unique_id=1989442888]
+offset_left = -193.33339
+offset_top = -420.0001
+offset_right = 222.80772
+offset_bottom = -242.33334
+theme_override_font_sizes/normal_font_size = 124
+text = "BRAKE"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Brake" unique_id=1213147563]
+offset_left = -65.24296
+offset_top = -167.18439
+offset_right = 65.75704
+offset_bottom = 134.81561
+theme_override_font_sizes/normal_font_size = 214
+text = "<"
+
+[node name="Reverse" type="Node2D" parent="." unique_id=1169777375]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Reverse" unique_id=1570685147]
+offset_left = 851.0
+offset_top = 529.0
+offset_right = 934.00006
+offset_bottom = 557.0
+theme_override_font_sizes/normal_font_size = 18
+text = "REVERSE"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Reverse" unique_id=840209892]
+offset_left = 880.99994
+offset_top = 557.0
+offset_right = 897.0
+offset_bottom = 582.0
+theme_override_font_sizes/normal_font_size = 16
+text = "M"
+
+[node name="Sprite" type="Sprite2D" parent="Reverse" unique_id=1146140177]
+position = Vector2(890, 593)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("4_hwdpa")
+
+[node name="Drift" type="Sprite2D" parent="." unique_id=1520176014]
+position = Vector2(63, 573)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("5_sgqnb")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Drift" unique_id=1521211731]
+anchors_preset = -1
+anchor_left = -0.1619036
+anchor_top = -0.09226205
+anchor_right = 0.48333448
+anchor_bottom = 0.03988081
+offset_left = -112.00081
+offset_top = -375.0
+offset_right = 36.99919
+offset_bottom = -269.0
+theme_override_font_sizes/normal_font_size = 124
+text = "DRIFT"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Drift" unique_id=1314196224]
+anchors_preset = -1
+anchor_top = -0.17023794
+anchor_right = 0.54
+anchor_bottom = -0.17023794
+offset_left = -200.0
+offset_top = 361.9999
+offset_right = -6.800003
+offset_bottom = 568.6666
+theme_override_font_sizes/normal_font_size = 124
+text = "SPACE"
+metadata/_edit_use_anchors_ = true
