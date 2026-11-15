@@ -102,14 +102,24 @@ func drive(delta: float) -> void:
 	var accel_rate : float
 	
 	# brake overrides all
-	if Input.is_action_pressed(gas) and not Input.is_action_pressed(brake):
-		if Input.is_action_pressed(reverse):
-			target_speed = -_max_speed
-		else:
-			target_speed = _max_speed
-	else:
-		#print("go 0")
+	# reverse overrides gas
+	if Input.is_action_pressed(brake):
 		target_speed = 0.0
+	elif Input.is_action_pressed(reverse):
+		target_speed = -_max_speed
+	elif Input.is_action_pressed(gas):
+		target_speed = _max_speed
+	else:
+		target_speed = 0.0
+		
+	#if Input.is_action_pressed(gas) and not Input.is_action_pressed(brake):
+		#if Input.is_action_pressed(reverse):
+			#target_speed = -_max_speed
+		#else:
+			#target_speed = _max_speed
+	#else:
+		##print("go 0")
+		#target_speed = 0.0
 		
 	if absf(target_speed) > 0.01:
 		accel_rate = _gas_acceleration
