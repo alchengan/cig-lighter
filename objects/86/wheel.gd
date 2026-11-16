@@ -26,8 +26,8 @@ func _process(delta) -> void:
 			start_new_skid()
 			
 		var _skidmark_half_width = lerpf(0, skidmark_half_width, clamp(car.linear_velocity.length() / speed_threshhold, 0.0, 1.0))
-		var new_front_drift_point: Vector3 = wheel_bottom.global_position + car.global_basis.x * _skidmark_half_width
-		var new_back_drift_point: Vector3 = wheel_bottom.global_position - car.global_basis.x * _skidmark_half_width
+		var new_front_drift_point: Vector3 = wheel_bottom.global_position + car.global_basis.x * _skidmark_half_width * (-1 if car.linear_velocity.dot(car.global_basis.z) < 0 else 1)
+		var new_back_drift_point: Vector3 = wheel_bottom.global_position - car.global_basis.x * _skidmark_half_width * (-1 if car.linear_velocity.dot(car.global_basis.z) < 0 else 1)
 
 		mesh_vertices.append(Vector3(new_front_drift_point.x, 0.01, new_front_drift_point.z))
 		mesh_vertices.append(Vector3(new_back_drift_point.x, 0.01, new_back_drift_point.z))
