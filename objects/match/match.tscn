@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://ck1bugsg77tfu"]
 
 [ext_resource type="Script" uid="uid://t4sfjr6a3ov7" path="res://objects/match/match.gd" id="1_7y1jj"]
-[ext_resource type="PackedScene" uid="uid://dsprvuw5eg0ti" path="res://models/match/match.glb" id="2_cgcil"]
+[ext_resource type="PackedScene" uid="uid://drrb7lxs1e1bu" path="res://objects/match/match_model.tscn" id="2_48fex"]
 [ext_resource type="AudioStream" uid="uid://bxwxo5nlvn8bn" path="res://audio/sfx/match_lighting/household_match_lighting_strike_box.mp3" id="3_o1mlk"]
 [ext_resource type="AudioStream" uid="uid://bvdfffbyaikbe" path="res://audio/sfx/match_lighting/esm_light_fire_1_ambience_nature_camp_tribal_organic.mp3" id="4_o8ddy"]
-[ext_resource type="PackedScene" uid="uid://drrb7lxs1e1bu" path="res://objects/match/match_model.tscn" id="2_48fex"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_u2ch8"]
 size = Vector3(2.25, 0.2, 0.2)
@@ -37,7 +36,9 @@ spread = 180.0
 initial_velocity_min = -2.0
 initial_velocity_max = 2.0
 gravity = Vector3(0, 4.5, 0)
+scale_min = 0.0
 scale_curve = SubResource("CurveTexture_3ojeb")
+color = Color(0.96862745, 0.95686275, 0.09411765, 1)
 color_ramp = SubResource("GradientTexture1D_ic460")
 hue_variation_min = -0.010000022
 hue_variation_max = 0.009999977
@@ -53,6 +54,64 @@ rim_enabled = true
 material = SubResource("StandardMaterial3D_t4vij")
 radius = 0.1
 height = 0.2
+
+[sub_resource type="Curve" id="Curve_o8ddy"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.18670884, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_t4vij"]
+curve = SubResource("Curve_o8ddy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fhr6u"]
+emission_shape_offset = Vector3(1.28, 0, 0)
+spread = 180.0
+initial_velocity_min = -2.5
+initial_velocity_max = 2.5
+gravity = Vector3(0, 4.5, 0)
+scale_curve = SubResource("CurveTexture_t4vij")
+color = Color(0.24115604, 0.24115604, 0.24115604, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ic460"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_o66vy"]
+material = SubResource("StandardMaterial3D_ic460")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="Curve" id="Curve_pw0lj"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.18037972, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2hy7g"]
+curve = SubResource("Curve_pw0lj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o66vy"]
+particle_flag_align_y = true
+emission_shape_offset = Vector3(1.28, 0, 0)
+direction = Vector3(0, 0, 1)
+spread = 30.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_2hy7g")
+color = Color(1, 1, 0, 1)
+hue_variation_min = -0.08000002
+hue_variation_max = 0.119999975
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m0u7b"]
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(1, 0.11764706, 0, 1)
+emission_energy_multiplier = 2.5
+rim_enabled = true
+rim = 0.65
+disable_receive_shadows = true
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_ic460"]
+material = SubResource("StandardMaterial3D_m0u7b")
+radius = 0.02
 
 [node name="Match" type="RigidBody3D" unique_id=1972445050]
 freeze = true
@@ -83,9 +142,27 @@ bus = &"Sfx"
 stream = ExtResource("4_o8ddy")
 bus = &"Sfx"
 
-[node name="Light" type="GPUParticles3D" parent="." unique_id=763515457]
+[node name="Particles" type="Node3D" parent="." unique_id=463288839]
+
+[node name="Light" type="GPUParticles3D" parent="Particles" unique_id=763515457]
 emitting = false
 amount = 100
 explosiveness = 0.04
 process_material = SubResource("ParticleProcessMaterial_galnl")
 draw_pass_1 = SubResource("SphereMesh_fhr6u")
+
+[node name="Smoke" type="GPUParticles3D" parent="Particles" unique_id=690680550]
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 0.4
+process_material = SubResource("ParticleProcessMaterial_fhr6u")
+draw_pass_1 = SubResource("SphereMesh_o66vy")
+
+[node name="Sparks" type="GPUParticles3D" parent="Particles" unique_id=1444718429]
+emitting = false
+amount = 15
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_o66vy")
+draw_pass_1 = SubResource("TubeTrailMesh_ic460")

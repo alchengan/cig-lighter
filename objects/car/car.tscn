@@ -125,6 +125,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.008036546, -0.18199354, -0.
 emitting = false
 amount = 30
 lifetime = 5.0
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_fhr6u")
 draw_pass_1 = SubResource("SphereMesh_galnl")
 
