@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mtxr2vbbxx26"
-path="res://.godot/imported/brake pedal.png-5da0696b46820b8973aba3a241cc7696.ctex"
+uid="uid://ih1vagq1k0rk"
+path="res://.godot/imported/drift.png-cc0f012a1317e1e326f4fbbf70654c25.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui icons/brake pedal.png"
-dest_files=["res://.godot/imported/brake pedal.png-5da0696b46820b8973aba3a241cc7696.ctex"]
+source_file="res://img assets/ui icons/drift.png"
+dest_files=["res://.godot/imported/drift.png-cc0f012a1317e1e326f4fbbf70654c25.ctex"]
 
 [params]
 

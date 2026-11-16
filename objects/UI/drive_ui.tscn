@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://yudb5wo53x2g"]
 
 [ext_resource type="Script" uid="uid://dbejdu5mxgqgc" path="res://objects/UI/drive_ui.gd" id="1_wujnt"]
-[ext_resource type="Texture2D" uid="uid://ew4bobe38q04" path="res://ui icons/gas pedal.png" id="2_ay1ie"]
-[ext_resource type="Texture2D" uid="uid://mtxr2vbbxx26" path="res://ui icons/brake pedal.png" id="3_0gguk"]
-[ext_resource type="Texture2D" uid="uid://jej1usdilivo" path="res://ui icons/reverse clutch.png" id="4_hwdpa"]
-[ext_resource type="Texture2D" uid="uid://ih1vagq1k0rk" path="res://ui icons/drift.png" id="5_sgqnb"]
+[ext_resource type="Texture2D" uid="uid://ew4bobe38q04" path="res://img assets/ui icons/gas pedal.png" id="2_ay1ie"]
+[ext_resource type="Texture2D" uid="uid://mtxr2vbbxx26" path="res://img assets/ui icons/brake pedal.png" id="3_0gguk"]
+[ext_resource type="Texture2D" uid="uid://jej1usdilivo" path="res://img assets/ui icons/reverse clutch.png" id="4_hwdpa"]
+[ext_resource type="Texture2D" uid="uid://ih1vagq1k0rk" path="res://img assets/ui icons/drift.png" id="5_sgqnb"]
 
 [node name="DriveUI" type="Node2D" unique_id=510444355]
 script = ExtResource("1_wujnt")

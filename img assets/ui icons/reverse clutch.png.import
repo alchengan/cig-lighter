@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ih1vagq1k0rk"
-path="res://.godot/imported/drift.png-40002ed3576a9e27583ae112dece5808.ctex"
+uid="uid://jej1usdilivo"
+path="res://.godot/imported/reverse clutch.png-b26b9a249c6ab15bdad16cc056975728.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui icons/drift.png"
-dest_files=["res://.godot/imported/drift.png-40002ed3576a9e27583ae112dece5808.ctex"]
+source_file="res://img assets/ui icons/reverse clutch.png"
+dest_files=["res://.godot/imported/reverse clutch.png-b26b9a249c6ab15bdad16cc056975728.ctex"]
 
 [params]
 
