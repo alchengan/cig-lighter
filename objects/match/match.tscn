@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ck1bugsg77tfu"]
 
 [ext_resource type="Script" uid="uid://t4sfjr6a3ov7" path="res://objects/match/match.gd" id="1_7y1jj"]
-[ext_resource type="PackedScene" uid="uid://dsprvuw5eg0ti" path="res://models/match/match.glb" id="2_cgcil"]
+[ext_resource type="PackedScene" uid="uid://drrb7lxs1e1bu" path="res://objects/match/match_model.tscn" id="2_48fex"]
 [ext_resource type="AudioStream" uid="uid://bdlbb7d05fl4t" path="res://audio/sfx/match_lighting/household_matches_lighting_strike_box_many_002.mp3" id="3_48fex"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_u2ch8"]
@@ -13,6 +13,45 @@ size = Vector3(2.25, 0.2, 0.2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_u2ch8"]
 size = Vector3(0.26, 0.4, 0.4)
 
+[sub_resource type="Gradient" id="Gradient_48fex"]
+offsets = PackedFloat32Array(0, 0.34827587, 0.64827585, 1)
+colors = PackedColorArray(1, 0.85490197, 0.23921569, 1, 1, 0.5882353, 0.10980392, 1, 1, 0.30980393, 0.45882353, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ic460"]
+gradient = SubResource("Gradient_48fex")
+
+[sub_resource type="Curve" id="Curve_o1mlk"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.3512658, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_3ojeb"]
+curve = SubResource("Curve_o1mlk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_galnl"]
+lifetime_randomness = 0.5
+emission_shape_offset = Vector3(1.28, 0, 0)
+direction = Vector3(1, 0, 1)
+spread = 180.0
+initial_velocity_min = -2.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 4.5, 0)
+scale_curve = SubResource("CurveTexture_3ojeb")
+color_ramp = SubResource("GradientTexture1D_ic460")
+hue_variation_min = -0.010000022
+hue_variation_max = 0.009999977
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t4vij"]
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(0.9098039, 0.5294118, 0.08627451, 1)
+emission_energy_multiplier = 2.12
+rim_enabled = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_fhr6u"]
+material = SubResource("StandardMaterial3D_t4vij")
+radius = 0.1
+height = 0.2
+
 [node name="Match" type="RigidBody3D" unique_id=1972445050]
 freeze = true
 script = ExtResource("1_7y1jj")
@@ -21,7 +60,7 @@ script = ExtResource("1_7y1jj")
 visible = false
 mesh = SubResource("BoxMesh_u2ch8")
 
-[node name="match" parent="." unique_id=2139829588 instance=ExtResource("2_cgcil")]
+[node name="match" parent="." unique_id=2139829588 instance=ExtResource("2_48fex")]
 transform = Transform3D(-4.2596747e-07, 0, -9.745, 0, 9.745, 0, 9.745, 0, -4.2596747e-07, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=458369593]
@@ -37,3 +76,10 @@ shape = SubResource("BoxShape3D_u2ch8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 0)
 stream = ExtResource("3_48fex")
 bus = &"Sfx"
+
+[node name="Light" type="GPUParticles3D" parent="." unique_id=763515457]
+emitting = false
+amount = 100
+explosiveness = 0.04
+process_material = SubResource("ParticleProcessMaterial_galnl")
+draw_pass_1 = SubResource("SphereMesh_fhr6u")
