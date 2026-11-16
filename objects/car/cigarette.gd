@@ -5,6 +5,8 @@ extends Area3D
 
 var is_lit: bool = false
 
+@onready var light_sound := $CigLightSound
+
 func _process(delta: float) -> void:
 	lit_particles.emitting = is_lit
 
@@ -13,6 +15,7 @@ func ignite() -> void:
 		return
 
 	is_lit = true
+	light_sound.play()
 
 	print("Cigarette lit")
 

@@ -152,7 +152,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.43367726, 0, 1.9934632)
 [node name="Tires51" parent="WallsFloor" unique_id=1135024125 instance=ExtResource("1_pcna7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3777685, 0, 2.3006885)
 
-[node name="Tires52" parent="WallsFloor" unique_id=852217373 instance=ExtResource("1_pcna7")]
+[node name="Tires52" parent="WallsFloor" unique_id=852217373 groups=["obstacles"] instance=ExtResource("1_pcna7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27173814, 0, 2.5713823)
 
 [node name="Tires53" parent="WallsFloor" unique_id=1333162167 instance=ExtResource("1_pcna7")]
