@@ -116,3 +116,12 @@ offset_bottom = 568.6666
 theme_override_font_sizes/normal_font_size = 124
 text = "SPACE"
 metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=268599539]
+offset_left = 108.0
+offset_top = 611.0
+offset_right = 203.0
+offset_bottom = 651.0
+theme_override_colors/default_color = Color(0.3403393, 0.34033933, 0.3403393, 1)
+theme_override_font_sizes/normal_font_size = 20
+text = "R - RESET"
