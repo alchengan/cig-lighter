@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://ck1bugsg77tfu"]
 
 [ext_resource type="Script" uid="uid://t4sfjr6a3ov7" path="res://objects/match/match.gd" id="1_7y1jj"]
-[ext_resource type="PackedScene" uid="uid://dsprvuw5eg0ti" path="res://models/match/match.glb" id="2_cgcil"]
+[ext_resource type="PackedScene" uid="uid://drrb7lxs1e1bu" path="res://objects/match/match_model.tscn" id="2_48fex"]
 [ext_resource type="AudioStream" uid="uid://bxwxo5nlvn8bn" path="res://audio/sfx/match_lighting/household_match_lighting_strike_box.mp3" id="3_o1mlk"]
 [ext_resource type="AudioStream" uid="uid://bvdfffbyaikbe" path="res://audio/sfx/match_lighting/esm_light_fire_1_ambience_nature_camp_tribal_organic.mp3" id="4_o8ddy"]
-[ext_resource type="PackedScene" uid="uid://drrb7lxs1e1bu" path="res://objects/match/match_model.tscn" id="2_48fex"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_u2ch8"]
 size = Vector3(2.25, 0.2, 0.2)
@@ -57,6 +56,7 @@ height = 0.2
 [node name="Match" type="RigidBody3D" unique_id=1972445050]
 freeze = true
 script = ExtResource("1_7y1jj")
+is_lit = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=670665132]
 visible = false
@@ -77,10 +77,14 @@ shape = SubResource("BoxShape3D_u2ch8")
 [node name="LightSound" type="AudioStreamPlayer3D" parent="." unique_id=1175296138]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 0)
 stream = ExtResource("3_o1mlk")
+volume_db = 6.0
+max_db = 6.0
 bus = &"Sfx"
 
 [node name="FireSound" type="AudioStreamPlayer3D" parent="." unique_id=1006841297]
 stream = ExtResource("4_o8ddy")
+volume_db = 3.0
+max_db = 6.0
 bus = &"Sfx"
 
 [node name="Light" type="GPUParticles3D" parent="." unique_id=763515457]

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bon0bkbwo01g5" path="res://objects/car/car.tscn" id="1_rpakr"]
 [ext_resource type="PackedScene" uid="uid://ck1bugsg77tfu" path="res://objects/match/match.tscn" id="2_ngkyx"]
 [ext_resource type="PackedScene" uid="uid://bcv4nmss65xkl" path="res://objects/AudioManager/AudioManager.tscn" id="3_biqry"]
-[ext_resource type="PackedScene" uid="uid://bjdr0nookbep3" path="res://objects/UI/OptionsMenu.tscn" id="4_agfwj"]
+[ext_resource type="PackedScene" uid="uid://bjdr0nookbep3" path="res://objects/UI/options_menu.tscn" id="4_agfwj"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_11b2j"]
 

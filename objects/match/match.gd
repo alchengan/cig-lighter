@@ -12,6 +12,7 @@ signal match_lit
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	match_head.area_entered.connect(_on_match_head_area_entered)
+	match_lit.connect(RunTimer.match_lit)
 	
 func _process(_delta) -> void:
 	light_particles.emitting = is_lit
@@ -39,3 +40,4 @@ func ignite() -> void:
 
 func _on_car_reset_car() -> void:
 	is_lit = false
+	fire_sound.stop()

@@ -12,21 +12,21 @@ func _input(event: InputEvent) -> void:
 			close_menu()
 		else:
 			open_menu()
-
+			
 		get_viewport().set_input_as_handled()
-
 
 func open_menu() -> void:
 	drive_ui.hide()
 	show()
 	get_tree().paused = true
 
-
 func close_menu() -> void:
 	drive_ui.show()
 	hide()
 	get_tree().paused = false
 
-
 func _on_confirm_pressed() -> void:
 	close_menu()
+
+func _on_reset_pb_pressed() -> void:
+	RunTimer.reset_pb()

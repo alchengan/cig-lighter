@@ -5,8 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://bthpgqye1hg8m" path="res://objects/tirestack/tirestack.tscn" id="1_pcna7"]
 [ext_resource type="PackedScene" uid="uid://ck1bugsg77tfu" path="res://objects/match/match.tscn" id="2_pcna7"]
 [ext_resource type="PackedScene" uid="uid://bcv4nmss65xkl" path="res://objects/AudioManager/AudioManager.tscn" id="3_ob5w4"]
-[ext_resource type="PackedScene" uid="uid://bjdr0nookbep3" path="res://objects/UI/OptionsMenu.tscn" id="4_1v4ph"]
+[ext_resource type="PackedScene" uid="uid://bjdr0nookbep3" path="res://objects/UI/options_menu.tscn" id="4_1v4ph"]
 [ext_resource type="PackedScene" uid="uid://yudb5wo53x2g" path="res://objects/UI/drive_ui.tscn" id="6_ob5w4"]
+[ext_resource type="PackedScene" uid="uid://b8wjm2mxbuakx" path="res://objects/UI/timer_ui.tscn" id="8_b6ohx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1v4ph"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -152,7 +153,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.43367726, 0, 1.9934632)
 [node name="Tires51" parent="WallsFloor" unique_id=1135024125 instance=ExtResource("1_pcna7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3777685, 0, 2.3006885)
 
-[node name="Tires52" parent="WallsFloor" unique_id=852217373 groups=["obstacles"] instance=ExtResource("1_pcna7")]
+[node name="Tires52" parent="WallsFloor" unique_id=852217373 instance=ExtResource("1_pcna7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27173814, 0, 2.5713823)
 
 [node name="Tires53" parent="WallsFloor" unique_id=1333162167 instance=ExtResource("1_pcna7")]
@@ -273,6 +274,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0503125, 0, 8.68867)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2033544, 0, 8.280557)
 
 [node name="Car" parent="." unique_id=94223461 instance=ExtResource("1_dg2cn")]
+max_speed = null
+normal_deceleration = null
+brake_deceleration = null
+x_deceleration = null
+drift_acceleration = null
+drift_normal_deceleration = null
+drift_brake_deceleration = null
+drift_car_angle = null
+drift_car_spin_speed = null
+wheel_radius = null
+wheel_turn_angle = null
+wheel_turn_speed = null
+turn_left = null
+turn_right = null
+gas = null
+brake = null
+drift = null
+reverse = null
+reset = null
+min_pitch = null
 
 [node name="WheelParent" parent="Car/86Parent/86/WheelFrontRightParent" parent_id_path=PackedInt32Array(94223461, 1581030991, 201634047) index="0" unique_id=30964433 node_paths=PackedStringArray("skidmark_parent")]
 skidmark_parent = NodePath("../../../../../SkidMarkParent")
@@ -298,6 +319,8 @@ transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -39.
 [node name="OptionsMenu" parent="CanvasLayer" unique_id=1325450302 instance=ExtResource("4_1v4ph")]
 
 [node name="DriveUI" parent="CanvasLayer" unique_id=510444355 instance=ExtResource("6_ob5w4")]
+
+[node name="TimerUI" parent="CanvasLayer" unique_id=1195764732 instance=ExtResource("8_b6ohx")]
 
 [connection signal="reset_car" from="Car" to="Car/86Parent/chad" method="_on_car_reset_car"]
 [connection signal="reset_car" from="Car" to="Car/86Parent/chad/Cigarette" method="_on_car_reset_car"]

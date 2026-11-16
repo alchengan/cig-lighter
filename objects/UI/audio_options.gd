@@ -1,8 +1,8 @@
 extends Control
 
-@onready var master_slider := $VBoxContainer/MasterSlider
-@onready var music_slider := $VBoxContainer/MusicSlider
-@onready var sfx_slider := $VBoxContainer/SFXSlider
+@onready var master_slider := $PanelContainer/VBoxContainer/MasterSlider
+@onready var music_slider := $PanelContainer/VBoxContainer/MusicSlider
+@onready var sfx_slider := $PanelContainer/VBoxContainer/SFXSlider
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

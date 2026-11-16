@@ -93,6 +93,8 @@ func _ready() -> void:
 	startup_sound.finished.connect(_on_startup_finished)
 	startup_sound.play()
 	
+	reset_car.connect(RunTimer.reset_run)
+	
 func _process(delta: float) -> void:
 	wheel_roll(delta)
 	wheel_turn(delta)
