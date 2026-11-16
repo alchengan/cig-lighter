@@ -15,6 +15,8 @@ signal match_lit
 func _ready() -> void:
 	match_head.area_entered.connect(_on_match_head_area_entered)
 	match_lit.connect(RunTimer.match_lit)
+	smoke_particles.emitting = true
+	spark_particles.emitting = true
 	
 func _on_match_head_area_entered(area: Area3D) -> void:
 	if area is Striker:
