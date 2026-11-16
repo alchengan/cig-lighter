@@ -6,6 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://bqoiaasj7php1" path="res://models/chad/chad.glb" id="3_qdph3"]
 [ext_resource type="Script" uid="uid://nhs2fkcrsobp" path="res://objects/car/cigarette.gd" id="3_w6yfw"]
 [ext_resource type="Script" uid="uid://etkl4b0kxagk" path="res://models/chad/chad.gd" id="4_lxyo8"]
+[ext_resource type="AudioStream" uid="uid://c65508od18sim" path="res://audio/sfx/cig_lighting/zapsplat_nature_fire_flame_air_wind_blow_blast_fast_short_009_21069.mp3" id="6_i08w7"]
+[ext_resource type="AudioStream" uid="uid://beo1sf07xka5r" path="res://audio/sfx/engine/startup.mp3" id="7_mb35c"]
+[ext_resource type="AudioStream" uid="uid://cm2xfyjrmc7mh" path="res://audio/sfx/engine/idle_loop.mp3" id="8_vwv8y"]
+[ext_resource type="AudioStream" uid="uid://dlyaivsh45tow" path="res://audio/sfx/engine/engine_loop.mp3" id="9_iq7h6"]
+[ext_resource type="AudioStream" uid="uid://bh0o4epfe027m" path="res://audio/sfx/tire_skids/gma_tyre_skid_loop_01_883.mp3" id="10_1cqgb"]
+[ext_resource type="AudioStream" uid="uid://dxgxx470bp316" path="res://audio/sfx/collisions/hit.mp3" id="11_i08w7"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_u2ch8"]
 size = Vector3(0.025, 0.025, 0.295)
@@ -27,6 +33,8 @@ axis_lock_angular_x = true
 axis_lock_angular_z = true
 mass = 1500.0
 gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 10
 script = ExtResource("1_hqc7p")
 gas_acceleration = 20.0
 initial_accel_boost = 10.0
@@ -37,6 +45,11 @@ drift_max_speed = 40.0
 drift_max_turn_speed = 5.0
 drift_turn_accel = 5.0
 drift_reset_turn_accel = 6.0
+crossfade_duration = 0.2
+max_pitch = 1.4
+volume_boost = 8.0
+min_collision_speed = 2.0
+collision_cooldown = 0.1
 
 [node name="86Parent" type="Node3D" parent="." unique_id=287311367]
 
@@ -76,6 +89,11 @@ mesh = SubResource("BoxMesh_u2ch8")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="86Parent/chad/Cigarette" unique_id=1682266952]
 shape = SubResource("BoxShape3D_gbv76")
 
+[node name="CigLightSound" type="AudioStreamPlayer3D" parent="86Parent/chad/Cigarette" unique_id=1955899297]
+stream = ExtResource("6_i08w7")
+volume_db = -21.0
+pitch_scale = 1.2
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1180146071]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_fhr6u")
@@ -97,6 +115,35 @@ car = NodePath("..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Striker" unique_id=381130823]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.525, -1.5)
 shape = SubResource("BoxShape3D_u2ch8")
+
+[node name="StartupSound" type="AudioStreamPlayer3D" parent="." unique_id=1100416423]
+stream = ExtResource("7_mb35c")
+volume_db = 8.0
+max_db = 6.0
+bus = &"Sfx"
+
+[node name="IdleSound" type="AudioStreamPlayer3D" parent="." unique_id=162406538]
+stream = ExtResource("8_vwv8y")
+max_db = 6.0
+bus = &"Sfx"
+
+[node name="DrivingSound" type="AudioStreamPlayer3D" parent="." unique_id=1836179341]
+stream = ExtResource("9_iq7h6")
+max_db = 6.0
+bus = &"Sfx"
+
+[node name="SkidSound" type="AudioStreamPlayer3D" parent="." unique_id=1237535517]
+stream = ExtResource("10_1cqgb")
+volume_db = -10.0
+max_db = 6.0
+bus = &"Sfx"
+
+[node name="CollisionSound" type="AudioStreamPlayer3D" parent="." unique_id=1397608099]
+stream = ExtResource("11_i08w7")
+volume_db = -3.0
+max_db = 6.0
+pitch_scale = 0.91
+bus = &"Sfx"
 
 [connection signal="start_drifting" from="." to="86Parent/86/WheelFrontRightParent/WheelParent" method="_on_car_start_drifting"]
 [connection signal="start_drifting" from="." to="86Parent/86/WheelFrontLeftParent/WheelParent" method="_on_car_start_drifting"]

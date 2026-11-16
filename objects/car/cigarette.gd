@@ -3,11 +3,14 @@ extends Area3D
 
 var is_lit: bool = false
 
+@onready var light_sound := $CigLightSound
+
 func ignite() -> void:
 	if is_lit:
 		return
 
 	is_lit = true
+	light_sound.play()
 
 	print("Cigarette lit")
 

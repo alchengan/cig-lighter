@@ -36,9 +36,24 @@ extends RigidBody3D
 @export var reverse := "reverse"
 @export var reset := "reset"
 
+@export_group("Engine Audio")
+@export var crossfade_duration := 0.3
+@export var min_pitch := 0.8
+@export var max_pitch := 1.5
+@export var volume_boost := 6.0 #dB
+
+@export_group("Collision Audio")
+@export var min_collision_speed := 3.0
+@export var collision_cooldown := 0.2
+
 @onready var mesh_shape := $"86Parent"
 @onready var collision_shape := $CollisionShape3D
 @onready var spoiler := $Striker
+@onready var startup_sound := $StartupSound
+@onready var idle_sound := $IdleSound
+@onready var driving_sound := $DrivingSound
+@onready var collision_sound := $CollisionSound
+@onready var skid_sound := $SkidSound
 
 # wheels
 @onready var wheel_fr := $"86Parent/86/WheelFrontRightParent/WheelParent/Wheel"
@@ -58,15 +73,32 @@ var turn_speed := 0.0
 var curr_car_angle := 0.0
 var curr_wheel_angle := 0.0
 
+var engine_started := false
+var engine_blend := 0.0
+
+var last_collision_time := -1.0
+
 func _ready() -> void:
 	check_input_mappings()
 	axis_lock_angular_x = true
 	axis_lock_angular_z = true
 	
+	contact_monitor = true
+	max_contacts_reported = 10
+	body_entered.connect(_on_body_entered)
+	
+	start_drifting.connect(_on_start_drifting)
+	stop_drifting.connect(_on_stop_drifting)
+	
+	startup_sound.finished.connect(_on_startup_finished)
+	startup_sound.play()
+	
 func _process(delta: float) -> void:
 	wheel_roll(delta)
 	wheel_turn(delta)
 	drift_car_turn(delta)
+	
+	update_engine_sound(delta)
 	
 	if Input.is_action_just_pressed(drift): start_drifting.emit()
 	if Input.is_action_just_released(drift): stop_drifting.emit()
@@ -206,4 +238,83 @@ func check_input_mappings():
 		push_error("Movement disabled. No InputAction found for turn_left: " + drift)
 	if not InputMap.has_action(reverse):
 		push_error("Movement disabled. No InputAction found for reverse: " + reverse)
+
+func _on_startup_finished() -> void:
+	engine_started = true
+	
+	idle_sound.volume_db = 2.0
+	driving_sound.volume_db = -60.0
+	
+	idle_sound.play()
+	driving_sound.play()
+
+
+func update_engine_sound(delta: float) -> void:
+	if not engine_started:
+		return
+		
+	var is_accelerating := (Input.is_action_pressed(gas) or Input.is_action_pressed(reverse)) and not Input.is_action_pressed(brake)
+
+	var target_blend := 1.0 if is_accelerating else 0.0
+	
+	engine_blend = move_toward(
+		engine_blend,
+		target_blend,
+		delta / maxf(crossfade_duration, 0.001)
+	)
+	var idle_volume := cos(engine_blend * PI / 2.0)
+	var driving_volume := sin(engine_blend * PI / 2.0)
+
+	idle_sound.volume_db = linear_to_db(maxf(idle_volume, 0.001)) + volume_boost
+	driving_sound.volume_db = linear_to_db(maxf(driving_volume, 0.001)) + volume_boost
+
+	# Calculate forward speed
+	var forward_velocity := linear_velocity.dot(
+		global_transform.basis.z.normalized()
+	)	
+
+	var speed_ratio := clampf(
+		absf(forward_velocity) / maxf(max_speed, 0.001),
+		0.0,
+		1.0
+	)
+
+	driving_sound.pitch_scale = lerpf(
+		min_pitch,
+		max_pitch,
+		speed_ratio
+	)
+
+func _on_start_drifting() -> void:
+	if not skid_sound.playing:
+		var duration: float = skid_sound.stream.get_length()
+		var random_start := randf_range(0.0, duration)
+		skid_sound.play(random_start)
+
+func _on_stop_drifting() -> void:
+	skid_sound.stop()
+		
+func _on_body_entered(body: Node) -> void:
+	if not body.is_in_group("obstacles"):
+		return
+		
+	var current_time := Time.get_ticks_msec() / 1000.0
+	
+	if current_time - last_collision_time < collision_cooldown:
+		return
+		
+	var relative_velocity := linear_velocity
+	
+	if body is RigidBody3D:
+		relative_velocity -= body.linear_velocity
+		
+	var impact_speed := relative_velocity.length()
+	
+	if impact_speed < min_collision_speed:
+		return
+		
+	last_collision_time = current_time
+	
+	collision_sound.pitch_scale = randf_range(0.9, 1.1)
+	collision_sound.play()
 	
