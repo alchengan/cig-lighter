@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://ui0do5ixwuba" path="res://objects/UI/audio_options.gd" id="2_iop2d"]
 
 [node name="OptionsMenu" type="Control" unique_id=1325450302]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

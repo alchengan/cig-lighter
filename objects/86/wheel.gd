@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var material: ORMMaterial3D
+@export var material: BaseMaterial3D
 @export var car: RigidBody3D
 @export var skidmark_parent: Node3D
 @export var wheel_bottom: Node3D
@@ -15,6 +15,8 @@ var mesh_vertices: Array[Vector3]
 
 func _ready() -> void:
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	if skidmark_parent != null:
+		warmup_skidmark()
 	#print(skidmark_parent)
 	
 func _process(delta) -> void:
@@ -34,6 +36,7 @@ func _process(delta) -> void:
 		
 		immediate_mesh.clear_surfaces()
 		immediate_mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLE_STRIP, material)
+		#immediate_mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLE_STRIP)
 		for v in mesh_vertices:
 			immediate_mesh.surface_add_vertex(v)
 		immediate_mesh.surface_end()
@@ -48,6 +51,29 @@ func _on_car_start_drifting() -> void:
 	
 func _on_car_stop_drifting() -> void:
 	drifting = false
+	
+func warmup_skidmark() -> void:
+	var warmup_mesh := ImmediateMesh.new()
+	
+	warmup_mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLE_STRIP, material)
+	
+	warmup_mesh.surface_add_vertex(Vector3(-0.1, 0.01, 0.0))
+	warmup_mesh.surface_add_vertex(Vector3(0.1, 0.01, 0.0))
+	warmup_mesh.surface_add_vertex(Vector3(-0.1, 0.01, 0.2))
+	warmup_mesh.surface_add_vertex(Vector3(0.1, 0.01, 0.2))
+	
+	warmup_mesh.surface_end()
+	
+	var warmup_instance := MeshInstance3D.new()
+	warmup_instance.mesh = warmup_mesh
+	warmup_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	
+	skidmark_parent.add_child(warmup_instance)
+	
+	for i in range(5):
+		await get_tree().process_frame
+		
+	warmup_instance.queue_free()
 	
 func start_new_skid() -> void:
 	mesh_instance = MeshInstance3D.new()

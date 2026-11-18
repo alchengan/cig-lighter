@@ -349,26 +349,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7656804, 0, 6.310777)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6126384, 0, 5.9026637)
 
 [node name="Car" parent="." unique_id=94223461 instance=ExtResource("1_dg2cn")]
-max_speed = null
-normal_deceleration = null
-brake_deceleration = null
-x_deceleration = null
-drift_acceleration = null
-drift_normal_deceleration = null
-drift_brake_deceleration = null
-drift_car_angle = null
-drift_car_spin_speed = null
-wheel_radius = null
-wheel_turn_angle = null
-wheel_turn_speed = null
-turn_left = null
-turn_right = null
-gas = null
-brake = null
-drift = null
-reverse = null
-reset = null
-min_pitch = null
 
 [node name="WheelParent" parent="Car/86Parent/86/WheelFrontRightParent" parent_id_path=PackedInt32Array(94223461, 1581030991, 201634047) index="0" unique_id=30964433 node_paths=PackedStringArray("skidmark_parent")]
 skidmark_parent = NodePath("../../../../../SkidMarkParent")
@@ -386,6 +366,7 @@ skidmark_parent = NodePath("../../../../SkidMarkParent")
 
 [node name="Match" parent="." unique_id=1972445050 instance=ExtResource("2_pcna7")]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -39.852, 2.133, 53.546)
+is_lit = false
 
 [node name="AudioManager" parent="." unique_id=156933036 instance=ExtResource("3_ob5w4")]
 

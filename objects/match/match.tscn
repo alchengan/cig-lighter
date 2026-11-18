@@ -14,35 +14,6 @@ size = Vector3(2.25, 0.2, 0.2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_u2ch8"]
 size = Vector3(0.26, 0.4, 0.4)
 
-[sub_resource type="Gradient" id="Gradient_48fex"]
-offsets = PackedFloat32Array(0, 0.34827587, 0.64827585, 1)
-colors = PackedColorArray(1, 0.85490197, 0.23921569, 1, 1, 0.5882353, 0.10980392, 1, 1, 0.30980393, 0.45882353, 1, 1, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ic460"]
-gradient = SubResource("Gradient_48fex")
-
-[sub_resource type="Curve" id="Curve_o1mlk"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.3512658, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_3ojeb"]
-curve = SubResource("Curve_o1mlk")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_galnl"]
-lifetime_randomness = 0.5
-emission_shape_offset = Vector3(1.28, 0, 0)
-direction = Vector3(1, 0, 1)
-spread = 180.0
-initial_velocity_min = -2.0
-initial_velocity_max = 2.0
-gravity = Vector3(0, 4.5, 0)
-scale_min = 0.0
-scale_curve = SubResource("CurveTexture_3ojeb")
-color = Color(0.96862745, 0.95686275, 0.09411765, 1)
-color_ramp = SubResource("GradientTexture1D_ic460")
-hue_variation_min = -0.010000022
-hue_variation_max = 0.009999977
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t4vij"]
 vertex_color_use_as_albedo = true
 emission_enabled = true
@@ -54,6 +25,14 @@ rim_enabled = true
 material = SubResource("StandardMaterial3D_t4vij")
 radius = 0.1
 height = 0.2
+
+[sub_resource type="Curve" id="Curve_o1mlk"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.3512658, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_48fex"]
+offsets = PackedFloat32Array(0, 0.34827587, 0.64827585, 1)
+colors = PackedColorArray(1, 0.85490197, 0.23921569, 1, 1, 0.5882353, 0.10980392, 1, 1, 0.30980393, 0.45882353, 1, 1, 0, 0, 1)
 
 [sub_resource type="Curve" id="Curve_o8ddy"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.18670884, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -149,12 +128,26 @@ bus = &"Sfx"
 
 [node name="Particles" type="Node3D" parent="." unique_id=463288839]
 
-[node name="Light" type="GPUParticles3D" parent="Particles" unique_id=763515457]
+[node name="Light" type="CPUParticles3D" parent="Particles" unique_id=487053687]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15, 0, 0)
 emitting = false
 amount = 100
 explosiveness = 0.04
-process_material = SubResource("ParticleProcessMaterial_galnl")
-draw_pass_1 = SubResource("SphereMesh_fhr6u")
+lifetime_randomness = 0.5
+fixed_fps = 30
+visibility_aabb = AABB(-4, -4, -4, 8, 8, 8)
+mesh = SubResource("SphereMesh_fhr6u")
+direction = Vector3(1, 0, 1)
+spread = 180.0
+gravity = Vector3(0, 4.5, 0)
+initial_velocity_min = -2.0
+initial_velocity_max = 2.0
+scale_amount_min = 0.0
+scale_amount_curve = SubResource("Curve_o1mlk")
+color = Color(0.96862745, 0.95686275, 0.09411765, 1)
+color_ramp = SubResource("Gradient_48fex")
+hue_variation_min = -0.010000022
+hue_variation_max = 0.009999977
 
 [node name="Smoke" type="GPUParticles3D" parent="Particles" unique_id=690680550]
 emitting = false

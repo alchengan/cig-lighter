@@ -250,7 +250,6 @@ func _on_startup_finished() -> void:
 	idle_sound.play()
 	driving_sound.play()
 
-
 func update_engine_sound(delta: float) -> void:
 	if not engine_started:
 		return
